@@ -1,4 +1,4 @@
-**_Task 0: _**
+**_Task 0:_**
 
 Least Squares
 
