@@ -1,7 +1,6 @@
 **_Task 0:_**
 
-Least Squares
-
+Least Squares Implementation
 
 **_Task 1:_**
 
