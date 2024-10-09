@@ -105,11 +105,11 @@ def get_data(file, train=True):
     # using the individual embeddings to generate the features and labels for triplets
     for t in triplets:
         emb = [file_to_embedding[a] for a in t.split()]
-        X.append(np.hstack([emb[0], emb[1], emb[2]]))
+        X.append(np.hstack([emb[0], emb[1], emb[2]])) #meaning image 1  is closer to to image 0 than image 2
         y.append(1)
         # Generating negative samples (data augmentation)
         if train:
-            X.append(np.hstack([emb[0], emb[2], emb[1]]))
+            X.append(np.hstack([emb[0], emb[2], emb[1]])) # meaning the fact that image 2 is closer to 0 than image one is *false*
             y.append(0)
     X = np.vstack(X)
     y = np.hstack(y)
