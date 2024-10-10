@@ -145,7 +145,15 @@ class Net(nn.Module):
         The constructor of the model.
         """
         super().__init__()
-        self.fc = nn.Linear(3000, 1)
+        self.layers = nn.Sequential(nn.Linear(input_size, 100),
+                                    nn.ReLU(),
+                                    nn.Linear(100, 50),
+                                    nn.ReLU(),
+                                    nn.Linear(50, 25),
+                                    nn.ReLU(),
+                                    nn.Linear(25, 10),
+                                    nn.Sigmoid(),
+                                    nn.Linear(10, 1))
 
     def forward(self, x):
         """
