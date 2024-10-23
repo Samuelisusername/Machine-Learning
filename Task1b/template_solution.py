@@ -60,7 +60,6 @@ def fit(X, y):
     errors = []
 
     best_index = -1
-    # TODO: Enter your code here
     lamdas = np.linspace(42.83321, 42.8334, num=10000)
 
     for i in range(len(lamdas)):
@@ -91,7 +90,6 @@ def fit(X, y):
     return w
 
 
-# Main function. You don't have to change this
 if __name__ == "__main__":
     # Data loading
     data = pd.read_csv("train.csv")
