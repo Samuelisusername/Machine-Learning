@@ -7,6 +7,9 @@ Given three images A, B, and C we find out if the food in image a tastes more si
 **Methodology :**
 
 We use embeddings* as an input to our torch Neural Network, which consists of multiple Perceptron layers and different activaiton functions. The output of this represents the probability of A being more similar to B than C. 
+We preprocess the image by resizing and normalizing it, using the ResNet152 weight transformations.
+Now the images are a valid input for the resnet model where the last layer is missing.
+
 
 **Self-supervised :**
 
