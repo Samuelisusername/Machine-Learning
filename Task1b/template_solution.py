@@ -1,6 +1,3 @@
-# This serves as a template which will guide you through the implementation of this task.  It is advised
-# to first read the whole template and get a sense of the overall structure of the code before trying to fill in any of the TODO gaps.
-# First, we import necessary libraries:
 from statistics import LinearRegression
 
 import numpy as np
@@ -8,11 +5,6 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.model_selection import cross_val_score
 import matplotlib.pyplot as plt
-
-
-# Add any additional imports here (however, the task is solvable without using
-# any additional imports)
-# import ...
 
 def transform_data(X):
     """
@@ -33,7 +25,6 @@ def transform_data(X):
     X_transformed: array of floats: dim = (700,21), transformed input with 21 features
     """
     X_transformed = np.zeros((700, 21))
-    # TODO: Enter your code here
     for j in range(700):
         for i in range(5):
             X_transformed[j][i] = X[j][i]
@@ -44,8 +35,6 @@ def transform_data(X):
         for i in range(5):
             X_transformed[j][i + 15] = np.cos(X[j][i])
         X_transformed[j][20] = 1
-
-    assert X_transformed.shape == (700, 21)
     return X_transformed
 
 
