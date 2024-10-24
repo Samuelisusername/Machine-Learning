@@ -3,7 +3,6 @@ import numpy as np
 import ssl
 import certifi
 
-from torchvision import transforms
 from torch.utils.data import DataLoader, TensorDataset
 import os
 import torch
