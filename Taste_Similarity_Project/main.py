@@ -1,6 +1,5 @@
 import requests
 import numpy as np
-import ssl
 import certifi
 
 from torch.utils.data import DataLoader, TensorDataset
@@ -13,11 +12,6 @@ import torch.nn.functional as F
 from torchvision.models import ResNet152_Weights, resnet152
 
 requests.packages.urllib3.disable_warnings()
-
-# Set up SSL
-ssl_context = ssl.create_default_context(cafile=certifi.where())
-ssl_context.check_hostname = False
-ssl_context.verify_mode = ssl.CERT_NONE
 
 # Set device to GPU if available
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
