@@ -207,7 +207,7 @@ def load_distilbert() -> (nn.Module, AutoTokenizer):
 
 def load_llama3() -> (nn.Module, AutoTokenizer):
     tokenizer = AutoTokenizer.from_pretrained("meta-llama/Meta-Llama-3-8B",
-                                              token="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")
+                                              token="insert_secret_token_here") #this is left out for security
     tokenizer.add_special_tokens({"pad_token": "<|end_of_text|>"})
 
     double_quant_config = BitsAndBytesConfig(
@@ -216,14 +216,14 @@ def load_llama3() -> (nn.Module, AutoTokenizer):
         bnb_4bit_use_double_quant=True,
         bnb_4bit_quant_type='nf4'
     )
-    config = AutoConfig.from_pretrained("meta-llama/Meta-Llama-3-8B", token="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")
+    config = AutoConfig.from_pretrained("meta-llama/Meta-Llama-3-8B", token="insert_secret_token_here")
     config.num_labels = 1
     config.pad_token_id = tokenizer.pad_token_id
     model = AutoModel.from_pretrained("meta-llama/Meta-Llama-3-8B",
                                       device_map=DEVICE,
                                       quantization_config=double_quant_config,
                                       config=config,
-                                      token="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")
+                                      token="insert_secret_token_here")
     # freeze all except classification head
     # model.model.requires_grad_(False)
 
