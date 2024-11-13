@@ -22,47 +22,6 @@ EMBEDDINGS_OUT = "embeddings_llama3_out.npy"
 EMBEDDINGS_TEST = "embeddings_llama3_test.npy"
 CHECKPOINT = "llama3_embed_300E_0.074L.pt"
 
-
-class RegressionClassifierForFinetune(nn.Module):
-    def __init__(self, ptm: nn.Module, in_features: int, pad_token_id: int):
-        super().__init__()
-        self.ptm = ptm
-        self.ptm.requires_grad_(False)
-        self.classifier = nn.Sequential(nn.Softmax(1),
-                                        nn.Linear(in_features, 100),
-                                        nn.ReLU(),
-                                        nn.Linear(100, 50),
-                                        nn.ReLU(),
-                                        nn.Linear(50, 25),
-                                        nn.Sigmoid(),
-                                        nn.Linear(25, 1)).to(dtype=ptm.dtype)
-        self.pad_token_id = pad_token_id
-        self.sigmoid = nn.Sigmoid()
-
-    def forward(self, **kwargs):
-        input_ids = kwargs["input_ids"]
-        res = self.ptm(input_ids=input_ids, attention_mask=kwargs["attention_mask"])
-        last_hidden_state = res[0]  # (batch_size, seq_len, dim)
-
-        # do classification on last non-padding token, see LlamaForSequenceClassification
-        batch_size = input_ids.shape[0]
-        sequence_lengths = torch.eq(input_ids, self.pad_token_id).int().argmax(-1) - 1
-        sequence_lengths = sequence_lengths % input_ids.shape[-1]
-        sequence_lengths = sequence_lengths.to(last_hidden_state.device)
-        pooled_output = last_hidden_state[torch.arange(batch_size, device=last_hidden_state.device), sequence_lengths]
-
-        pooled_output = self.classifier(pooled_output)
-        # clamped = self.sigmoid(pooled_output) * 10
-        loss_fct = nn.MSELoss()
-        loss = loss_fct(pooled_output.squeeze(), kwargs["labels"])
-        return SequenceClassifierOutput(
-            loss=loss,
-            logits=pooled_output,
-            hidden_states=res.hidden_states,
-            attentions=res.attentions,
-        )
-
-
 class RegressionClassifier(nn.Module):
     def __init__(self, in_features: int):
         super().__init__()
