@@ -5,7 +5,6 @@ import bitsandbytes.optim
 import numpy as np
 import peft
 from bitsandbytes.optim import AdamW8bit
-from peft import LoftQConfig, LoraConfig, PeftModel
 from torch.optim import AdamW
 from transformers import AutoTokenizer, AutoModel, QuantoConfig, AutoModelForSequenceClassification, LlamaConfig, \
     AutoConfig, BitsAndBytesConfig, BatchEncoding, DistilBertForSequenceClassification
@@ -190,18 +189,6 @@ def load_distilbert() -> (nn.Module, AutoTokenizer):
                                       config=config
                                       # attn_implementation="flash_attention_2"
                                       )
-    # loftq_config = LoftQConfig(loftq_bits=4)
-    # lora_config = LoraConfig(lora_alpha=8,
-    #                          lora_dropout=0.05,
-    #                          r=8,
-    #                          bias="none",
-    #                          target_modules="all-linear",
-    #                          task_type="SEQ_CLS",
-    #                          # loftq_config=loftq_config,
-    #                          # init_lora_weights="loftq",
-    #                          inference_mode=False)
-    # model = peft.get_peft_model(model, lora_config)
-    # model.print_trainable_parameters()
     return model, tokenizer
 
 
