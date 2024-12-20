@@ -1,4 +1,4 @@
-**Input:** Unclean data, where for many samples some feature values are missing, and sometimes labels are missing. The data is historical data of fuel prices in switzerlands surrounding country and the labels are the respective swiss fuel prices on that season. 
+**Input:** Unclean data, where for many samples feature values are missing, and sometimes labels are missing. The data is historical data of fuel prices in switzerlands surrounding country and the labels are the respective swiss fuel prices on that season. 
 
 
 **Output:** Given Data of surrounding countries fuel prices, the ouptut is the predicted swiss fuel price.
